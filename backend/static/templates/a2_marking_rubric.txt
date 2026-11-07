@@ -1,0 +1,9 @@
+[DEMONSTRATION DATA] Software Engineering - Assignment 2: Testing Strategy Report
+Marking rubric (report section)
+
+1. Does the report clearly explain the problem and objectives? - 15%
+2. Is the technical explanation accurate and understandable? - 15%
+3. Does the report provide appropriate evidence, research and references? - 25%
+4. Does the report explain and justify the chosen methodology? - 15%
+5. Does the report critically evaluate the results and limitations? - 20%
+6. Is the report professionally structured and clearly presented? - 10%

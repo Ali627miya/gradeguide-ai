@@ -1,0 +1,11 @@
+[DEMONSTRATION DATA - fictional student's earlier Assignment 1, used to show progress tracking]
+
+CampusBook Requirements Report
+
+This report is about the requirements for CampusBook. Students find it really hard to book rooms and everyone complains about it all the time. The current system is terrible and a new app will definitely fix the problem.
+
+We talked to some friends and they all said they wanted an app. The main requirements are that students can search rooms, book rooms and cancel bookings. Staff should be able to block rooms for exams. The app must be fast and secure and easy to use and it should work on phones and laptops and it should send reminders and it should be accessible for everyone.
+
+Our design uses a Flask backend and a SQLite database because these are the best tools. The database has tables for users, rooms and bookings.
+
+In conclusion, CampusBook will solve all of the room booking problems at the university.

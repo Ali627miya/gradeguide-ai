@@ -1,0 +1,34 @@
+[DEMONSTRATION DATA - fictional student's revised draft, edited by the student after coaching]
+
+Testing Strategy Report - CampusBook
+
+1. Introduction
+
+CampusBook is a web app our team of four built in six weeks so students can book library study rooms. The aim of this report is to explain the testing strategy we chose, to evaluate how well it worked, and to recommend what we would change next time. The problem we wanted to solve was that early versions kept breaking whenever someone changed shared code, especially the booking logic.
+
+2. Background
+
+Unit tests check one small part of the code, such as a single function, while integration tests check that components work together, for example the booking form and the database. Continuous integration means every change is merged and tested often, so problems are found while they are still small (Fowler, 2006). Beck (2002) argues that writing tests first also makes developers think about the design of the code before writing it.
+
+3. Methodology
+
+We chose pytest for unit and integration tests because the whole team already knew Python and it needs less boilerplate than unittest. We ran the tests on GitHub Actions on every push. We considered manual testing only, but we rejected it because with four people changing the same files we could not re-check every feature by hand after every change. We did not use full test-driven development, because two team members had never used it and we only had six weeks.
+
+4. Results
+
+We wrote 85 tests. The automated tests caught 11 bugs before they reached our demo build, including a double-booking bug where two students could book the same room at the same time. This was caused by two requests checking availability before either one saved, so we added a database constraint and a test that sends two bookings at once.
+
+5. Evaluation and limitations
+
+The results suggest automated testing helped us, but they do not prove it works for every project. Nagappan et al. (2008) found that teams using test-driven development had 40 to 90 percent fewer pre-release defects, although development took 15 to 35 percent longer. We saw a similar trade-off, because writing tests took roughly a quarter of our time. However, our project was small and we did not measure how many bugs we would have found without tests, so we cannot compare the two approaches directly. Another limitation is that we had no tests for the email reminders, so that feature was still only checked by hand. Myers, Sandler and Badgett (2011) point out that testing can show bugs exist but cannot show that there are none, so passing tests do not guarantee CampusBook is bug-free.
+
+6. Conclusion
+
+Automated testing with continuous integration was worth the extra time for CampusBook because it found serious bugs early, but the evidence from one small student project is limited. Next time we would add tests for the email reminders and measure defects more carefully so we can judge the trade-off properly.
+
+References
+
+Beck, K. (2002) Test-Driven Development: By Example. Boston: Addison-Wesley.
+Fowler, M. (2006) Continuous Integration. Available at: https://martinfowler.com/articles/continuousIntegration.html
+Myers, G.J., Sandler, C. and Badgett, T. (2011) The Art of Software Testing. 3rd edn. Hoboken: Wiley.
+Nagappan, N., Maximilien, E.M., Bhat, T. and Williams, L. (2008) 'Realizing quality improvement through test driven development: results and experiences of four industrial teams', Empirical Software Engineering, 13(3), pp. 289-302.

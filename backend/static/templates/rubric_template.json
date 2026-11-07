@@ -1,0 +1,11 @@
+{
+  "name": "My module rubric (code + report)",
+  "questions": [
+    {"section": "code", "question": "Does the code correctly implement the required functionality?", "weight": 20, "short_name": "Functionality"},
+    {"section": "code", "question": "Does the solution handle errors and unexpected inputs appropriately?", "weight": 10, "short_name": "Error handling"},
+    {"section": "code", "question": "Has the code been sufficiently tested and validated?", "weight": 20, "short_name": "Testing"},
+    {"section": "report", "question": "Does the report clearly explain the problem and objectives?", "weight": 15, "short_name": "Problem & objectives"},
+    {"section": "report", "question": "Does the report provide appropriate evidence, research and references?", "weight": 20, "short_name": "Evidence & research"},
+    {"section": "report", "question": "Does the report critically evaluate the results and limitations?", "weight": 15, "short_name": "Critical evaluation"}
+  ]
+}

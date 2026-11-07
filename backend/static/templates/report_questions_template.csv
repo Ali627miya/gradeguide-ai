@@ -1,0 +1,7 @@
+section,question,weight,short_name
+report,Does the report clearly explain the problem and objectives?,15,Problem & objectives
+report,Is the technical explanation accurate and understandable?,15,Technical explanation
+report,"Does the report provide appropriate evidence, research and references?",25,Evidence & research
+report,Does the report explain and justify the chosen methodology?,15,Methodology
+report,Does the report critically evaluate the results and limitations?,20,Critical evaluation
+report,Is the report professionally structured and clearly presented?,10,Structure & presentation

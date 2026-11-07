@@ -1,0 +1,7 @@
+section,question,weight,short_name
+code,Does the code correctly implement the required functionality?,25,Functionality
+code,Is the code logically structured and easy to understand?,15,Structure & readability
+code,Does the solution handle errors and unexpected inputs appropriately?,15,Error handling
+code,Is the code efficient and does it avoid unnecessary complexity?,15,Efficiency
+code,Are appropriate programming techniques and concepts used?,15,Techniques
+code,Has the code been sufficiently tested and validated?,15,Testing

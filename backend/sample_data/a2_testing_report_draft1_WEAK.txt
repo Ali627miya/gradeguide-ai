@@ -1,0 +1,15 @@
+[DEMONSTRATION DATA - fictional student draft written for the GradeGuide AI demo]
+
+Testing Strategy Report - CampusBook
+
+Testing is very important in software engineering and everyone knows that automated testing is always better than manual testing. For our CampusBook room booking app we used automated tests because it is the best way to make software. Bugs cost companies a huge amount of money every year and testing clearly stops this from happening.
+
+Our app lets students book study rooms in the library and it was built with Python and Flask by our team of four people over six weeks and we had a lot of features like searching for rooms and cancelling bookings and getting email reminders and also an admin page where staff can block rooms for exams and we tested most of these features with unit tests that we wrote in pytest and some of them also had integration tests and we ran the tests on GitHub Actions every time someone pushed code which meant we always knew if something broke and this saved us a lot of time because we did not have to check everything by hand and we think this is the main reason why our project was successful.
+
+Unit tests check one small part of the code, like a single function. Integration tests check that different parts work together, for example the booking form and the database. We wrote 85 tests in total.
+
+Automated testing is the future and manual testing is completely outdated. Big companies like Google only use automated tests. Our results prove that automated testing works for every project.
+
+The tests found some bugs. For example the double booking bug where two students could book the same room at the same time. We fixed it.
+
+Overall automated testing was a great success and all teams should use it.

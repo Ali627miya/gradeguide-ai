@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Build & Cache
+frontend/dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment & Secrets
+.env
+*.env
+!.env.example
+backend/.env
+!backend/.env.example
+
+# Databases
+backend/*.db
+*.db
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
