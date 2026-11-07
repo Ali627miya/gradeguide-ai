@@ -4,38 +4,37 @@
 
 /* ------------------------------------------------------------------ theme tokens (RGB triplets) */
 :root {
-  --bg: 244 246 250;
+  --bg: 250 248 255;
   --surface: 255 255 255;
-  --surface-2: 238 242 248;
-  --ink: 15 23 42;
-  --muted: 84 98 122;
-  --line: 222 228 238;
-  --brand: 15 33 71;        /* deep navy */
+  --surface-2: 244 241 252;
+  --ink: 39 43 67;
+  --muted: 103 108 132;
+  --line: 229 226 241;
+  --brand: 54 57 103;
   --brand-ink: 255 255 255;
-  --accent: 13 148 136;     /* teal */
+  --accent: 105 91 214;
   --accent-ink: 255 255 255;
-  --info: 37 99 235;
-  /* performance colours - default palette */
-  --strong: 21 128 61;
-  --okay: 180 83 9;
-  --weak: 190 18 60;
+  --info: 39 151 177;
+  --strong: 25 145 111;
+  --okay: 190 126 28;
+  --weak: 202 73 99;
   color-scheme: light;
 }
 .dark {
-  --bg: 9 14 28;
-  --surface: 17 25 44;
-  --surface-2: 26 36 60;
-  --ink: 232 237 247;
-  --muted: 154 167 192;
-  --line: 40 52 80;
-  --brand: 125 162 255;
-  --brand-ink: 9 14 28;
-  --accent: 45 212 191;
-  --accent-ink: 4 30 28;
-  --info: 96 165 250;
-  --strong: 74 222 128;
-  --okay: 251 191 36;
-  --weak: 251 113 133;
+  --bg: 22 24 42;
+  --surface: 31 34 57;
+  --surface-2: 42 45 72;
+  --ink: 244 242 255;
+  --muted: 178 179 204;
+  --line: 63 65 96;
+  --brand: 42 44 78;
+  --brand-ink: 255 255 255;
+  --accent: 164 151 255;
+  --accent-ink: 34 28 73;
+  --info: 93 195 215;
+  --strong: 83 205 157;
+  --okay: 241 190 91;
+  --weak: 246 125 151;
   color-scheme: dark;
 }
 /* Colour-blind friendly palette (Okabe-Ito: blue / orange / vermillion) */
@@ -50,6 +49,8 @@ html[data-textsize="sm"] { font-size: 87.5%; }
 html[data-textsize="md"] { font-size: 100%; }
 html[data-textsize="lg"] { font-size: 112.5%; }
 html[data-textsize="xl"] { font-size: 125%; }
+html[data-font="readable"] body { font-family: "Atkinson Hyperlegible", "Nunito Sans", "Arial", sans-serif; }
+html[data-letter-spacing="wide"] body { letter-spacing: 0.035em; line-height: 1.7; }
 
 /* reduced motion (setting or OS preference) */
 html[data-reduced-motion="true"] *, html[data-reduced-motion="true"] *::before, html[data-reduced-motion="true"] *::after {
@@ -61,34 +62,68 @@ html[data-reduced-motion="true"] *, html[data-reduced-motion="true"] *::before, 
 }
 
 html, body, #root { min-height: 100%; }
-body { @apply bg-bg text-ink font-sans antialiased; }
-h1, h2, h3 { @apply font-display tracking-tight; }
+body { @apply bg-bg text-ink font-sans antialiased; font-feature-settings: "ss01" on; background-image: radial-gradient(circle at 8% 4%, rgb(185 171 255 / .10), transparent 26rem), radial-gradient(circle at 95% 18%, rgb(105 213 194 / .10), transparent 24rem); }
+h1, h2, h3 { @apply font-display tracking-tight; text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Human-centred interaction defaults: clear pointer affordance and tactile feedback. */
+button:not(:disabled), [role="button"], a, summary, label[for], select { cursor: pointer; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled) { transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease; }
+button:not(:disabled):active { transform: translateY(1px) scale(.985); }
+::selection { background: rgb(var(--accent) / .22); color: rgb(var(--ink)); }
+
 
 /* visible keyboard focus everywhere */
 :focus-visible { outline: 3px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
 
 @layer components {
-  .card { @apply bg-surface border border-line rounded-xl2 shadow-card; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed; }
-  .btn-primary { @apply btn bg-accent text-accentink hover:brightness-110 active:scale-[.98]; }
-  .btn-brand { @apply btn bg-brand text-brandink hover:brightness-110 active:scale-[.98]; }
-  .btn-ghost { @apply btn border border-line bg-surface text-ink hover:bg-surface2; }
+  .card { @apply bg-surface border border-line rounded-2xl; box-shadow: 0 5px 20px rgb(55 48 100 / .055), 0 1px 3px rgb(55 48 100 / .04); }
+  .interactive-card { @apply card transition-all duration-200; }
+  .interactive-card:hover { transform: translateY(-4px); border-color: rgb(var(--accent) / .42); box-shadow: 0 18px 38px -20px rgb(55 48 100 / .28); }
+  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed; letter-spacing: .005em; }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 9px 20px -10px rgb(55 48 100 / .38); }
+  .btn:active:not(:disabled) { transform: translateY(1px) scale(.975); box-shadow: none; }
+  .btn-primary { @apply btn bg-accent text-accentink; }
+  .btn-primary:hover:not(:disabled) { filter: brightness(1.06); }
+  .btn-brand { @apply btn bg-brand text-brandink; }
+  .btn-brand:hover:not(:disabled) { filter: brightness(1.12); }
+  .btn-ghost { @apply btn border border-line bg-surface text-ink; }
+  .btn-ghost:hover:not(:disabled) { @apply bg-surface2; border-color: rgb(var(--accent) / .35); }
   .btn-danger { @apply btn border border-weak/40 text-weak bg-surface hover:bg-weak/10; }
-  .input { @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted/70 focus:border-accent; }
-  .label { @apply block text-sm font-semibold text-ink mb-1; }
-  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  .input { @apply w-full rounded-2xl border border-line bg-surface px-4 py-3 text-sm text-ink placeholder:text-muted/70 transition-shadow focus:border-accent focus:ring-4 focus:ring-accent/10; }
+  .label { @apply block text-sm font-bold text-ink mb-1.5; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold; }
   .h-page { @apply text-2xl md:text-3xl font-extrabold text-ink; }
   .sub { @apply text-muted text-sm; }
 }
 
+/* Consistent, warm, human-centred surfaces across every workspace. */
 /* patterns so ratings never rely on colour alone */
 .pat-weak { background-image: repeating-linear-gradient(135deg, rgb(var(--weak) / .13) 0 4px, transparent 4px 9px); }
 .pat-okay { background-image: radial-gradient(rgb(var(--okay) / .28) 1.2px, transparent 1.4px); background-size: 7px 7px; }
 .pat-strong { background-color: rgb(var(--strong) / .14); }
 
 .fade-in { animation: fadeIn .35s ease both; }
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -20px rgb(15 23 42 / .35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover, .interactive-card:hover { transform: none; }
+}
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .grow-bar { animation: grow 1s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
 @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 .sr-only-focusable:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Playful GradeGuide interaction language */
+html { scroll-behavior: smooth; }
+button, a, [role="button"], input, select, textarea { touch-action: manipulation; }
+:where(button, a, [role="button"], input, select, textarea):focus-visible { outline: 3px solid rgb(var(--info)); outline-offset: 3px; }
+::placeholder { opacity: .78; }
+hr { border-color: rgb(var(--line)); }
+@media (hover: hover) and (pointer: fine) {
+  a:not([class*="btn"]):hover { color: rgb(var(--accent)); }
+}

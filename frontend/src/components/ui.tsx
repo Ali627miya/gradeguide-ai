@@ -117,9 +117,9 @@ export function SpeakButton({ id, text, label = "Read aloud" }: { id: string; te
   const active = sp.currentId === id && sp.state !== "idle";
   return (
     <button type="button" onClick={() => (active ? sp.stop() : sp.speak(id, text))}
-      className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${active ? "border-accent bg-accent text-accentink" : "border-line text-muted hover:text-accent hover:border-accent"}`}
+      className={`inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent ${active ? "border-accent bg-accent text-accentink" : "border-accent/60 bg-surface text-ink hover:border-accent hover:bg-accent/10"}`}
       aria-label={active ? "Stop reading" : label} title={active ? "Stop reading" : label} aria-pressed={active}>
-      {active ? <Square className="h-3.5 w-3.5" aria-hidden /> : <Volume2 className="h-4 w-4" aria-hidden />}
+      {active ? <Square className="h-4 w-4" aria-hidden /> : <Volume2 className="h-4 w-4" aria-hidden />}<span>{active ? "Stop reading" : "Read aloud"}</span>
     </button>
   );
 }

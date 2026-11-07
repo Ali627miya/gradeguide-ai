@@ -6,6 +6,7 @@ import { useAuth } from "./context/AuthContext";
 import type { Role } from "./lib/types";
 import HowItWorks from "./pages/HowItWorks";
 import Landing from "./pages/Landing";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import SettingsPage from "./pages/Settings";
 import ProfAnalytics from "./pages/professor/Analytics";
@@ -55,6 +56,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/student" element={S(<StudentDashboard />)} />
       <Route path="/student/new" element={S(<NewAssessment />)} />
       <Route path="/student/assignments" element={S(<Assignments />)} />

@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, BookOpenCheck, GraduationCap, MessageCircleQuestion, PlayCircle, ShieldCheck, Sparkles, UserRound } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpenCheck, MessageCircleQuestion, PlayCircle, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Layout";
@@ -16,7 +16,7 @@ const agents = [
 ];
 
 export default function Landing() {
-  const { user, login, adopt, config, configError } = useAuth();
+  const { user, adopt, config, configError } = useAuth();
   const { setDemo } = useDemo();
   const nav = useNavigate();
   const [busy, setBusy] = useState<string | null>(null);
@@ -31,74 +31,79 @@ export default function Landing() {
       nav(`/student/draft/${r.draft_id}`);
     } catch (e) { setError((e as Error).message); } finally { setBusy(null); }
   };
-  const signIn = async (role: "student" | "professor") => {
-    setBusy(role); setError(null);
-    try { await login(role); nav(role === "professor" ? "/professor" : "/student"); }
-    catch (e) { setError((e as Error).message); } finally { setBusy(null); }
-  };
 
   return (
     <div className="min-h-screen bg-bg">
-      <header className="relative overflow-hidden bg-[#0f2147] text-white">
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
-          style={{ background: "radial-gradient(900px 400px at 85% -10%, rgba(45,212,191,.35), transparent 60%), radial-gradient(700px 380px at 0% 110%, rgba(59,130,246,.35), transparent 60%)" }} />
-        <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-6 md:px-8">
+      <header className="relative overflow-hidden bg-[#f1efff] text-[#292b4b] dark:bg-[#292846] dark:text-white">
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-32 h-[28rem] w-[28rem] rounded-full bg-[#a99cff]/35 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-40 left-[28%] h-[26rem] w-[26rem] rounded-full bg-[#8de2d0]/35 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-6 md:px-8 md:pb-24">
           <div className="flex items-center justify-between">
-            <Logo light />
-            {user && <button className="btn !bg-white/10 !text-white hover:!bg-white/20" onClick={() => nav(user.role === "professor" ? "/professor" : "/student")}>Go to my dashboard <ArrowRight className="h-4 w-4" /></button>}
+            <Logo />
+            <div className="flex items-center gap-3">
+              {user && <button className="btn-ghost !border-[#d9d3fa] !bg-white/70 dark:!border-white/20 dark:!bg-white/10" onClick={() => nav(user.role === "professor" ? "/professor" : "/student")}>My dashboard <ArrowRight className="h-4 w-4" /></button>}
+              <button className="btn !min-h-11 !bg-[#6557d5] !px-5 !text-white hover:!bg-[#5548c3]" onClick={() => nav("/login")}>Sign in</button>
+            </div>
           </div>
-          <div className="mt-16 grid gap-12 md:grid-cols-[1.25fr_1fr] md:items-center">
+          <div className="mt-14 grid gap-12 md:grid-cols-[1.08fr_.92fr] md:items-center lg:mt-20">
             <div className="fade-in">
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold"><Sparkles className="h-3.5 w-3.5 text-[#2dd4bf]" /> Formative feedback · before you submit</p>
-              <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] md:text-6xl">
-                Your assignment.<br />Your effort.<br /><span className="text-[#2dd4bf]">A smarter way to improve.</span>
+              <p className="inline-flex items-center gap-2 rounded-full border border-[#d8d1fb] bg-white/75 px-4 py-2 text-sm font-extrabold text-[#6557c7] shadow-sm dark:border-white/15 dark:bg-white/10 dark:text-[#c7c0ff]"><Sparkles className="h-4 w-4" /> Feedback that helps you grow</p>
+              <h1 className="mt-6 max-w-3xl font-display text-4xl font-black leading-[1.04] tracking-tight md:text-6xl lg:text-7xl">
+                Your work. Your ideas. <span className="text-[#6557d5] dark:text-[#b7adff]">Your next step.</span>
               </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/80">
-                GradeGuide checks your draft against your lecturer's real marking rubric, shows you the evidence from your own work,
-                and coaches you with questions - so you improve it yourself.
+              <p className="mt-6 max-w-xl text-lg leading-8 text-[#5e607b] dark:text-white/75">
+                GradeGuide checks your draft against your lecturer's real marking rubric, shows evidence from your own work, and coaches you with thoughtful questions — so you can improve it yourself.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <button onClick={startDemo} disabled={!!busy} className="btn !bg-[#2dd4bf] !px-6 !py-3.5 !text-base !text-[#04201d] shadow-lg shadow-teal-500/20 hover:brightness-110">
-                  <PlayCircle className="h-5 w-5" /> {busy === "demo" ? "Preparing demo..." : "Try Interactive Demo"}
+                <button onClick={startDemo} disabled={!!busy} className="btn !min-h-14 !rounded-2xl !bg-[#31c5ad] !px-7 !text-base !text-[#123d3a] shadow-lg shadow-teal-500/20 hover:!bg-[#54d9c3]">
+                  <PlayCircle className="h-5 w-5" /> {busy === "demo" ? "Preparing your demo…" : "Try the interactive demo"}
                 </button>
-                <button onClick={() => signIn("student")} disabled={!!busy} className="btn !bg-white/10 !px-5 !py-3.5 !text-white hover:!bg-white/20"><UserRound className="h-5 w-5" /> Student demo login</button>
-                <button onClick={() => signIn("professor")} disabled={!!busy} className="btn !bg-white/10 !px-5 !py-3.5 !text-white hover:!bg-white/20"><GraduationCap className="h-5 w-5" /> Lecturer demo login</button>
+                <button onClick={() => nav("/login")} className="btn min-h-14 !rounded-2xl !border-[#d9d3fa] !bg-white/80 !px-5 !text-[#3d3b68] hover:!border-[#aaa0ed] hover:!bg-white dark:!border-white/20 dark:!bg-white/10 dark:!text-white"><UserRound className="h-5 w-5" /> Choose your role <ArrowRight className="h-4 w-4" /></button>
               </div>
-              <p className="mt-4 text-sm text-white/60">About 3 minutes · no account or upload needed · demo data is clearly labelled</p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold text-[#777895] dark:text-white/65">
+                <span className="inline-flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#249d83]" /> No account needed</span>
+                <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#249d83]" /> You stay the author</span>
+                <span className="inline-flex items-center gap-1.5"><Sparkles className="h-4 w-4 text-[#b18b25]" /> Demo data labelled</span>
+              </div>
               {config && <div className="mt-4"><ModeBadge mode={config.ai_mode} model={config.model} /></div>}
             </div>
-            <div className="card fade-in !border-white/10 !bg-white/[.06] p-5 text-white backdrop-blur" aria-label="Example feedback preview">
-              <p className="text-xs font-bold uppercase tracking-widest text-white/60">Example · demonstration data</p>
-              <p className="mt-3 text-sm font-semibold">Evidence & research <span className="text-white/60">· 25% of rubric</span></p>
-              <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-rose-300/50 bg-rose-400/15 px-2.5 py-1 text-xs font-bold text-rose-200">WEAK · 1/5</span>
-              <blockquote className="mt-3 border-l-4 border-[#2dd4bf] pl-3 text-sm text-white/85">&ldquo;everyone knows that automated testing is always better than manual testing.&rdquo;</blockquote>
-              <p className="mt-1 text-xs text-emerald-300">✓ Verified in your document</p>
-              <p className="mt-3 text-sm text-white/75">A strong claim with no research behind it.</p>
-              <p className="mt-3 rounded-lg bg-white/10 p-3 text-sm"><span className="font-semibold text-[#2dd4bf]">Coach:</span> What reliable research or data could show a reader that this statement is accurate?</p>
+            <div className="relative mx-auto w-full max-w-xl fade-in">
+              <div aria-hidden className="absolute -left-5 -top-5 h-20 w-20 rounded-[1.7rem] bg-[#ffd98b] rotate-[-12deg]" />
+              <div aria-hidden className="absolute -bottom-5 -right-4 h-24 w-24 rounded-full bg-[#8de2d0]" />
+              <div className="relative rounded-[2rem] border border-white/80 bg-white/90 p-6 shadow-[0_24px_70px_-30px_rgba(69,57,140,.35)] backdrop-blur dark:border-white/10 dark:bg-[#343354] md:p-8" aria-label="Example feedback preview">
+                <div className="flex items-center justify-between gap-3"><p className="text-xs font-black uppercase tracking-[.14em] text-[#8885a8]">A little preview</p><span className="rounded-full bg-[#e9f8f3] px-3 py-1 text-xs font-extrabold text-[#21876f] dark:bg-emerald-400/15 dark:text-emerald-200">DEMO EXAMPLE</span></div>
+                <div className="mt-6 flex items-start justify-between gap-4"><div><p className="text-lg font-extrabold text-[#343451] dark:text-white">Evidence & research</p><p className="mt-1 text-sm text-[#8885a2] dark:text-white/60">25% of your rubric</p></div><span className="rounded-xl bg-[#fff0f1] px-3 py-2 text-xs font-black text-[#c34c67] dark:bg-rose-400/15 dark:text-rose-200">1 / 5 · WEAK</span></div>
+                <blockquote className="mt-5 rounded-2xl border-l-4 border-[#f2a65a] bg-[#fff8ed] px-4 py-4 text-sm leading-6 text-[#57546d] dark:bg-white/5 dark:text-white/80">“Everyone knows that automated testing is always better than manual testing.”</blockquote>
+                <p className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#249d83]"><BadgeCheck className="h-4 w-4" /> Evidence found in your document</p>
+                <p className="mt-4 text-sm leading-6 text-[#77758e] dark:text-white/65">A confident claim needs reliable evidence to support it.</p>
+                <div className="mt-5 rounded-2xl bg-[#eeecff] p-4 dark:bg-[#4a4772]"><p className="text-sm leading-6 text-[#4c477d] dark:text-white/90"><span className="font-black text-[#6557d5] dark:text-[#c8c1ff]">Your coach asks:</span> What research or data could help a reader trust this statement?</p></div>
+                <div className="mt-5 flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#31c5ad]"/><span className="h-2.5 w-2.5 rounded-full bg-[#f2bd58]"/><span className="h-2.5 w-2.5 rounded-full bg-[#ed8d9e]"/><span className="ml-2 text-xs font-semibold text-[#9693ad]">Small steps. Clear progress.</span></div>
+              </div>
             </div>
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-5 py-14 md:px-8">
+      <main className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
         {(error || configError) && <div className="mb-8"><ErrorBox message={error || `Cannot reach the backend: ${configError}. Start it with "uvicorn main:app --reload --port 8000" in the backend folder.`} /></div>}
-        <h2 className="font-display text-2xl font-extrabold">Four agents, one rule: <span className="text-accent">you stay the author</span></h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {agents.map((a) => (
-            <div key={a.name} className="card p-5">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent"><a.icon className="h-5 w-5" aria-hidden /></span>
-              <h3 className="mt-3 font-bold">{a.name}</h3>
-              <p className="mt-1 text-sm text-muted">{a.text}</p>
+        <section className="mb-16 grid gap-6 rounded-[2rem] border border-[#e5e0fa] bg-white p-7 shadow-[0_12px_40px_-30px_rgba(69,57,140,.3)] md:grid-cols-[1fr_auto] md:items-center md:p-9 dark:border-line dark:bg-surface" aria-labelledby="start-heading">
+          <div><p className="text-xs font-black uppercase tracking-[.16em] text-[#7669d5]">A friendly place to begin</p><h2 id="start-heading" className="mt-2 font-display text-2xl font-black md:text-3xl">Make your next draft a little stronger.</h2><p className="mt-2 max-w-2xl leading-7 text-muted">Explore a guided student example, or choose student or lecturer access. You can try the main workflow without creating an account.</p></div>
+          <div className="flex flex-wrap gap-2 md:justify-end"><button onClick={startDemo} disabled={!!busy} className="btn-primary min-h-12">{busy === "demo" ? "Preparing…" : "Start guided demo"}<ArrowRight className="h-4 w-4" /></button><button onClick={() => nav("/login")} className="btn-ghost min-h-12">Choose a role</button></div>
+        </section>
+        <div className="mb-7 max-w-2xl"><p className="text-xs font-black uppercase tracking-[.16em] text-[#7669d5]">Thoughtful support, not shortcuts</p><h2 className="mt-2 font-display text-3xl font-black">Four helpful agents. <span className="text-[#7669d5]">You stay in charge.</span></h2></div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {agents.map((a, i) => (
+            <div key={a.name} className="interactive-card p-6">
+              <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl ${["bg-[#e8e5ff] text-[#6c5ed0]", "bg-[#e1f7f1] text-[#218d79]", "bg-[#fff0dc] text-[#b87927]", "bg-[#ffe9ee] text-[#c05a77]"][i]}`}><a.icon className="h-5 w-5" aria-hidden /></span>
+              <h3 className="mt-4 font-extrabold">{a.name}</h3><p className="mt-2 text-sm leading-6 text-muted">{a.text}</p>
             </div>
           ))}
         </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {[["For students", "Know where you stand against the rubric before you submit, and track progress from Assignment 1 to Assignment 2."],
-            ["For lecturers", "Import six code and six report questions from CSV/JSON. See anonymised class weaknesses and a suggested teaching focus."],
-            ["For universities", "AI support that strengthens learning and academic integrity instead of undermining it."]].map(([t, d]) => (
-            <div key={t} className="rounded-xl2 border border-line p-5"><p className="font-bold">{t}</p><p className="mt-1 text-sm text-muted">{d}</p></div>
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {[ ["For students", "Understand how your draft meets the rubric, improve your evidence and see your progress over time."], ["For lecturers", "Build rubrics, review student work and spot anonymised class-level learning patterns."], ["For universities", "Support learning and academic integrity with feedback that helps students remain the authors."] ].map(([t, d], i) => (
+            <div key={t} className="interactive-card p-6"><span className={`mb-4 inline-flex h-2 w-12 rounded-full ${["bg-[#8b7ce5]", "bg-[#49c7ad]", "bg-[#f0b95b]"][i]}`} /><p className="font-extrabold">{t}</p><p className="mt-2 text-sm leading-6 text-muted">{d}</p></div>
           ))}
         </div>
-        <p className="mt-12 text-center text-xs text-muted">GradeGuide gives AI-generated estimated feedback ratings, not official university marks. Prototype built for the Reply Student Tech Clash - AI on Campus.</p>
+        <p className="mt-14 text-center text-xs leading-6 text-muted">GradeGuide gives AI-generated estimated feedback ratings, not official university marks. Prototype built for the Reply Student Tech Clash — AI on Campus.</p>
       </main>
     </div>
   );

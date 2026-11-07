@@ -61,7 +61,13 @@ export default function SettingsPage() {
         <div className="flex flex-wrap gap-2 pt-2" aria-label="Palette preview"><RatingBadge rating="STRONG" score={5} /><RatingBadge rating="OKAY" score={3} /><RatingBadge rating="WEAK" score={1} /></div>
       </section>
       <section className="card space-y-3 p-6" aria-labelledby="txt-h">
-        <h2 id="txt-h" className="text-lg font-bold">Text size</h2>
+        <h2 id="txt-h" className="text-lg font-bold">Typography</h2>
+        <p className="sub">Adjust the typeface and spacing to make longer feedback easier to read.</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div><p className="label mb-2">Font style</p><Choice<Settings["font"]> name="Font style" value={settings.font} onChange={(v) => update({ font: v })} options={[{ v: "standard", label: "Modern and friendly", hint: "DM Sans with Manrope headings" }, { v: "readable", label: "Simple and readable", hint: "Atkinson Hyperlegible / system fallback" }]} /></div>
+          <div><p className="label mb-2">Letter spacing</p><Choice<Settings["letterSpacing"]> name="Letter spacing" value={settings.letterSpacing} onChange={(v) => update({ letterSpacing: v })} options={[{ v: "normal", label: "Standard" }, { v: "wide", label: "Wider spacing", hint: "More space between letters and lines" }]} /></div>
+        </div>
+        <h3 className="pt-2 text-base font-bold">Text size</h3>
         <Choice<Settings["textSize"]> name="Text size" value={settings.textSize} onChange={(v) => update({ textSize: v })} options={[
           { v: "sm", label: "Small" }, { v: "md", label: "Default" }, { v: "lg", label: "Large" }, { v: "xl", label: "Extra large" },
         ]} />
